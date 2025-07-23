@@ -1,0 +1,1 @@
+This repository contains an example project to demonstrate the capabilities of [Rigel](https://github.com/rigel-ros/rigel/).
