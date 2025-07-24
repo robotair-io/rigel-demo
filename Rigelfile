@@ -15,6 +15,23 @@ vars:
 application:
     distro: "{{ vars.distro }}"
 
+providers:
+
+    container_registry_provider_1:
+        provider: "rigel.providers.core.ContainerRegistryProvider"
+        with:
+            server: "https://ghcr.io/"
+            username: "robotair-io"
+            password: "{{ vars.GITHUB_TOKEN }}"
+
+    ssh_provider_1:
+        provider: "rigel.providers.core.SSHProvider"
+        with:
+            keys:
+            -
+                hostname: "https://github.com/"
+                env: "DEPLOY_KEYS"
+
 jobs:
 
     dockerfile:
@@ -44,7 +61,17 @@ jobs:
             load: True
             platforms:
                 - "linux/amd64"
-                # - "linux/arm64"
+
+    build_with_push:
+        plugin: "{{ vars.buildx_plugin }}"
+        with:
+            image: "ghcr.io/robotair-io/rigel-demo"
+            tags:
+                - "latest"
+            load: False
+            push: True
+            platforms:
+                - "linux/amd64"
 
     test:
         plugin: "{{ vars.test_plugin }}"
@@ -63,3 +90,10 @@ sequences:
                     - "dockerfile"
                     - "build"
                     - "test"
+    # Temporary, until https://github.com/rigel-ros/rigel/pull/38 is merged
+    deploy:
+        stages:
+            -
+                jobs:
+                    - "dockerfile"
+                    - "build_with_push"
