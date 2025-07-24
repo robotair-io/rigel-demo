@@ -5,11 +5,13 @@ from rclpy.node import Node
 from geometry_msgs.msg import Twist
 import random
 
+
 def compute_circle_velocity(speed: float, radius: float) -> Twist:
     msg = Twist()
     msg.linear.x = speed
     msg.angular.z = speed / radius if radius > 0 else 0.0
     return msg
+
 
 class DrawCircle(Node):
 
@@ -35,6 +37,7 @@ class DrawCircle(Node):
         self.publisher_.publish(stop_msg)
         super().destroy_node()
 
+
 def main(args=None):
     rclpy.init(args=args)
     node = DrawCircle()
@@ -45,6 +48,7 @@ def main(args=None):
     finally:
         node.destroy_node()
         rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()

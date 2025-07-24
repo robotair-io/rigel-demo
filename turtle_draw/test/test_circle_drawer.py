@@ -1,6 +1,6 @@
 import unittest
-from geometry_msgs.msg import Twist
 from turtle_draw.main import compute_circle_velocity
+
 
 class TestCircleVelocity(unittest.TestCase):
 
@@ -22,6 +22,7 @@ class TestCircleVelocity(unittest.TestCase):
         radius = 0.1
         msg = compute_circle_velocity(speed, radius)
         self.assertTrue(msg.angular.z > 0)
+
 
 if __name__ == '__main__':
     unittest.main()
