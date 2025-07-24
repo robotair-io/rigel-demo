@@ -7,6 +7,10 @@
 
 vars:
     distro: "humble"
+    dockerfile_plugin: "rigel.plugins.core.DockerfilePlugin"
+    buildx_plugin: "rigel.plugins.core.BuildXPlugin"
+    test_plugin: "rigel.plugins.core.UnitTestPlugin"
+    image_name: "turtle_spiral"
 
 application:
     distro: "{{ vars.distro }}"
@@ -14,7 +18,7 @@ application:
 jobs:
 
     dockerfile:
-        plugin: "rigel.plugins.core.DockerfilePlugin"
+        plugin: "{{ vars.dockerfile_plugin }}"
         with:
             ros_image: "docker.io/library/ros:{{ vars.distro }}-ros-base"
             command: "ros2 launch turtle_draw turtle-draw-bringup.launch.py"
@@ -32,16 +36,23 @@ jobs:
                     value: '"[{severity} {time}] [{name}]: {message}"'
 
     build:
-        plugin: "rigel.plugins.core.BuildXPlugin"
+        plugin: "{{ vars.buildx_plugin }}"
         with:
-            image: "ghcr.io/robotair-io/turtle-circle"
+            image: "{{ vars.image_name }}"
             tags:
                 - "latest"
-                - "{{ vars.distro }}"
             load: True
             platforms:
                 - "linux/amd64"
                 # - "linux/arm64"
+
+    test:
+        plugin: "{{ vars.test_plugin }}"
+        with:
+            image: "{{ vars.image_name }}"
+            tag: "latest"
+            std_output: True
+            compiler: "colcon"
 
 
 sequences:
