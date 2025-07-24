@@ -34,9 +34,10 @@ jobs:
     build:
         plugin: "rigel.plugins.core.BuildXPlugin"
         with:
-            image: "turtle_spiral"
+            image: "ghcr.io/robotair-io/turtle-circle"
             tags:
                 - "latest"
+                - "{{ vars.distro }}"
             load: True
             platforms:
                 - "linux/amd64"

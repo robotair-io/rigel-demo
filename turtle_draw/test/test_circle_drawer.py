@@ -1,6 +1,6 @@
 import unittest
 from geometry_msgs.msg import Twist
-from circle_drawer import compute_circle_velocity
+from turtle_draw.main import compute_circle_velocity
 
 class TestCircleVelocity(unittest.TestCase):
 
