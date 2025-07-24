@@ -1,0 +1,14 @@
+# misc
+.vscode/
+
+Dockerfile
+.dockerignore
+dockerfile_entrypoint.sh
+
+# ROS related
+build/
+install/
+log/
+__pycache__/
+
+failed_tests/
