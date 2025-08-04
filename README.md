@@ -59,3 +59,12 @@ turtle_draw/
   source ~/ros2_ws/install/setup.bash
   ```
 ---
+* Before running docker compose up, you need to allow Docker containers to access your X server:
+  ```
+  xhost +local:docker
+
+  ```
+* Before running docker compose pull, you need to authenticate with the ghcr otherwise the docker pull fails:
+  ```
+  echo $GITHUB_PAT | docker login ghcr.io -u user_name --password-stdin
+  ```

@@ -6,11 +6,11 @@
 ---
 
 vars:
-    distro: "humble"
+    distro: "kilted"
     dockerfile_plugin: "rigel.plugins.core.DockerfilePlugin"
     buildx_plugin: "rigel.plugins.core.BuildXPlugin"
     test_plugin: "rigel.plugins.core.UnitTestPlugin"
-    image_name: "turtle_spiral"
+    image_name: "rigel-demo"
 
 application:
     distro: "{{ vars.distro }}"
@@ -23,14 +23,6 @@ providers:
             server: "https://ghcr.io/"
             username: "robotair-io"
             password: "{{ vars.GITHUB_TOKEN }}"
-
-    ssh_provider_1:
-        provider: "rigel.providers.core.SSHProvider"
-        with:
-            keys:
-            -
-                hostname: "https://github.com/"
-                env: "DEPLOY_KEYS"
 
 jobs:
 
@@ -58,6 +50,7 @@ jobs:
             image: "{{ vars.image_name }}"
             tags:
                 - "latest"
+                - "{{ vars.distro }}"
             load: True
             platforms:
                 - "linux/amd64"
@@ -68,6 +61,7 @@ jobs:
             image: "ghcr.io/robotair-io/rigel-demo"
             tags:
                 - "latest"
+                - "{{ vars.distro }}"
             load: False
             push: True
             platforms:

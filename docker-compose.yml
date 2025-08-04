@@ -1,0 +1,21 @@
+services:
+  turtle_spiral:
+    image: ghcr.io/robotair-io/rigel-demo:kilted
+    command: ros2 launch turtle_draw turtle-draw-bringup.launch.py
+    restart: always
+    environment:
+      DISPLAY: ${DISPLAY}
+      QT_X11_NO_MITSHM: 1
+      XDG_RUNTIME_DIR: /tmp/runtime-robotair
+      LIBGL_ALWAYS_SOFTWARE: "1"
+      ROS_DOMAIN_ID: 1
+      RCUTILS_CONSOLE_OUTPUT_FORMAT: '[{severity}] [{time}] [{name}]: {message}'
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /tmp/runtime-robotair:/tmp/runtime-robotair
+    networks:
+      - turtle_network
+
+networks:
+  turtle_network:
+    driver: bridge
