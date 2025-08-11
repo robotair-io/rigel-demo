@@ -34,7 +34,7 @@ jobs:
           RIGEL_ACCESS_TOKEN: ${{ secrets.RIGEL_ACCESS_TOKEN }}
         run: |
           sudo apt update
-          pip install "git+https://${RIGEL_ACCESS_TOKEN}:x-oauth-basic@github.com/robotair-io/rigel@develop"
+          pip install "git+https://${RIGEL_ACCESS_TOKEN}@github.com/robotair-io/rigel@develop"
           
       - name: Show Docker file generated
         run: |
