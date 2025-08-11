@@ -43,3 +43,6 @@ jobs:
 
       - name: Deploy ROS application using Rigel
         run: rigel run sequence deploy
+      
+      - name: Build and Unit tests ROS application using Rigel
+        run: rigel run sequence robotair
