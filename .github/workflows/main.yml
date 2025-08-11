@@ -29,12 +29,13 @@ jobs:
         with:
           secrets: ${{ toJSON(secrets) }}
       
-      - name: Install Rigel from private repo
+      - name: Clone Rigel with token
         env:
           TOKEN: ${{ secrets.RIGEL_REPO_TOKEN }}
-        run: |
-          sudo apt update
-          pip install "git+https://${TOKEN}@github.com/robotair-io/rigel@develop"
+        run: git clone https://${TOKEN}@github.com/robotair-io/rigel.git --branch develop
+
+      - name: Install Rigel
+        run: pip install ./rigel
           
       - name: Show Docker file generated
         run: |
