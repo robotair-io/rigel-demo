@@ -22,7 +22,7 @@ providers:
         with:
             server: "https://ghcr.io/"
             username: "robotair-io"
-            password: "{{ vars.GITHUB_TOKEN }}"
+            password: "{{ vars.GHCR_TOKEN }}"
 
 jobs:
 
