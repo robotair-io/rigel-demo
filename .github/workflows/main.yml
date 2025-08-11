@@ -31,7 +31,7 @@ jobs:
       
       - name: Clone Rigel with token
         env:
-          TOKEN: ${{ secrets.RIGEL_REPO_TOKEN }}
+          TOKEN: ${{ secrets.RIGEL_ACCESS_TOKEN }}
         run: git clone https://${TOKEN}@github.com/robotair-io/rigel.git --branch develop
 
       - name: Install Rigel
