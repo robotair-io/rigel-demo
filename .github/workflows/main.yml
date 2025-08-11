@@ -29,14 +29,13 @@ jobs:
         with:
           secrets: ${{ toJSON(secrets) }}
       
-      - name: Clone Rigel with token
+      - name: Clone and install Rigel
         env:
           TOKEN: ${{ secrets.RIGEL_ACCESS_TOKEN }}
-        run: git clone https://${TOKEN}@github.com/robotair-io/rigel.git --branch develop
-
-      - name: Install Rigel
-        run: pip install ./rigel
-          
+        run: |
+          git clone https://${TOKEN}@github.com/robotair-io/rigel.git --branch develop
+          pip install ./rigel
+      
       - name: Show Docker file generated
         run: |
           rigel run job dockerfile 
