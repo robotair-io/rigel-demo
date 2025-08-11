@@ -29,9 +29,13 @@ jobs:
         with:
           secrets: ${{ toJSON(secrets) }}
       
-      - name: Install Rigel
-        run: sudo apt update && pip install git+https://github.com/robotair-io/rigel@develop
-
+      - name: Install Rigel from private repo
+        env:
+          RIGEL_ACCESS_TOKEN: ${{ secrets.RIGEL_ACCESS_TOKEN }}
+        run: |
+          sudo apt update
+          pip install "git+https://${RIGEL_ACCESS_TOKEN}:x-oauth-basic@github.com/robotair-io/rigel@develop"
+          
       - name: Show Docker file generated
         run: |
           rigel run job dockerfile 
